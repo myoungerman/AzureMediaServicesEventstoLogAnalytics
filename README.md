@@ -36,7 +36,7 @@ Copy one of the keys over to your Logic App.
 
 Now click on "Create".
 
-## Walkthrough Steps
+## Create and setup your Logic App
 
 1. In the Azure portal, navigate to your Azure Media Services account and select **Events** from the navigation pane on the left. The main panel will display the event handlers available for Azure Media Services events.
 
@@ -70,9 +70,7 @@ Now click on "Create".
 
 1. In the **Name** field, enter a name for your Logic App, and add it to a resource group.
 
-1. Select **Create**.
-
-1. Check your resource group by searching for _Resource groups_ in the main search bar of the webpage. In your resource group, you should see a Logic App and two API connections, one for the Events and one for Log Analytics.
+1. Select **Create**, and then check your resource group by searching for _Resource groups_ in the main search bar of the webpage. In your resource group, you should see a Logic App and two API connections, one for the Events and one for Log Analytics.
 
 ## Test your logic app
 
@@ -101,22 +99,12 @@ ffmpeg -i mySampleVideo.mp4 -map 0 -c:v libx264 -c:a copy -f flv rtmp://amsevent
 1. In  **Log Analytics** select **Logs** in the left menu. This should open the Log Query containing a **Custom Logs** section with the event name **MicrosoftMediaLiveEventEncoderConnected**. 
 
   > [!NOTE]
-  > You may need to refresh the page. The first time it can take a couple minutes to create the custom log and the   data to populate.**
+  > You may need to refresh the page. The first time it can take a few minutes to create the custom log and populate the data.**
 
-
-![Preview Query](src/22.png)
-
-You can expand to see all the fields for this event. When you click on the "eye" icon you can see a preview of the query result.
-
-
-![Run Query in Query editor](src/23.png)
-
-You can click "See in query editor" to see the raw data of all fields.
-
-
-![See detailed Event output in Log Analytics](src/24.png)
-
-This is the output from the query where we see all the data of the event "MicrosoftMediaLiveEventEncoderConnected".
+You can also:
+* Select the event to see all of its fields.
+* Select the "eye" icon to see a preview of the query result.
+* Select **See in query editor** to see the raw data of all fields.
 
 ## Next steps:
 You can create different queries and save them. These can be added to [Azure Dashboard](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/tutorial-logs-dashboards).
