@@ -68,29 +68,12 @@ Now click on "Create".
 
 1. Select **Save As** at the top of the page.
 
+1. In the **Name** field, enter a name for your Logic App, and add it to a resource group.
 
-![Create new Logic App](src/14.png)
+1. Select **Create**.
 
-Give the Logic App a name and add it to a resource group.
+1. Check your resource group by searching for _Resource groups_ in the main search bar of the webpage. In your resource group, you should see a Logic App and two API connections, one for the Events and one for Log Analytics.
 
-
-![Verify config in Logic App Designer](src/15.png)
-
-Let's verify once more, go the the Logic App and click on "Logic app designer"
-
-
-![Verify Body and Function steps](src/16.png)
-
-It should look like the picture above.
-
-
-![See all new resources in Resource Group](src/26.png)
-
-
-When we have a look at all the resources in the resource group we can see a Logic App and two Logic App API connectors. One for the Events and one for Log Analytics. There is also an [Event Grid System Topic](https://docs.microsoft.com/en-us/azure/event-grid/system-topics). 
-
-
-![Create an Azure Media Services Live Event](src/17.png)
 
 Now we would like see it actually work. To test let's create a Live Event in Azure Media Services. For this test we create a RTMP Live Event and we are going to use ffmpeg to push a "live" stream based on a mp4 sample file. After the event is created you get the RTMP ingest URL. Copy this url over to the ffmpeg commandline below and add a unique name at the end like "mystream" for instance. Adjust the commandline to reflect your test source file and any other system varialbles.
 ```
