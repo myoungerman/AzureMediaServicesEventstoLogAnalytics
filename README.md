@@ -1,18 +1,17 @@
 # Tutorial: Store Azure Media Services Events in Azure Log Analytics
 
 In this tutorial you will learn how to store Azure Media Services events in Azure Log Analytics.
-> [!div class="checklist"]
-> * create a no code Logic App Flow
-> * Subscribe to Azure Media Services Event Topics
-> * Parse Events and store to Azure Log Analytics
-> * Query Events from Azure Log Analytics
+* Create a no code Logic App Flow
+* Subscribe to Azure Media Services Event Topics
+* Parse Events and store to Azure Log Analytics
+* Query Events from Azure Log Analytics
 
 If you don’t have an Azure subscription, create a [free account](https://azure.microsoft.com/free/?WT.mc_id=A261C142F) before you begin.
 
-## prerequisites:
-> * Azure Subscription
-> * AMS account already created
-> * Log Analytics Workspace already created
+## Prerequisites:
+* Azure Subscription
+* AMS account already created
+* Log Analytics Workspace already created
 
 ## Azure Media Services Events
 Azure Media Services v3 emits events on [Azure Event Grid](https://docs.microsoft.com/en-us/azure/media-services/latest/media-services-event-schemas). You can subscribe to these events in many ways and store the events in various data stores. In this tutorial we will subscribe to these events using a [Log App Flow](https://azure.microsoft.com/en-us/services/logic-apps/). The Logic App will be triggered for each event and store the body of the event in Azure Log Analytics. Once the events are in [Azure Log Analytics](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace) we can use other Azure services to monitor, dashboard and alert on these events as desired by your own needs.
@@ -21,34 +20,20 @@ For this tutorial we expect you already have an [Azure Media Services](https://d
 **It is best you already set one up now using these simple steps: [Quick Create Workspace](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace)**
 
 ## Walkthrough Steps
-![Azure Media Services Portal](src/01a.png)
 
-In the Azure portal, navigate to your Azure Media Services account and click "Events" on the left hand side in the navigation pane. This will show all the various ways to subscribe to the Azure Media Services events.
+1. In the Azure portal, navigate to your Azure Media Services account and select **Events** from the navigation pane on the left. The main panel will display the event handlers available for Azure Media Services events.
 
+2. Select **Logic Apps** to create a Logic App. This opens the Logic App Designer, where you can create the process that will capture events and push them to Log Analytics.
 
-![Create Logic App](src/02.png)
+3. Select **+** on the right to authenticate and subscribe to the Event Grid. A window with a list will appear, prompting you to select a tenant.
 
-Click on the "Logic Apps" icon to create a Logic App.
+4. Select your tenant from the list, and then select **Sign in**. Once the authentication is complete, you'll see your user email and a green checkmark.
 
+5. Select **Continue** to subscribe to the Media Services Events.
 
-![Connect to Azure Event Grid](src/03.png)
+6. In the **Resource Type** list, select _Microsoft.Media.MediaServices_.
 
-This will open the Logic App Designer where we can create the flow to capture the events and push them to Log Analytics. First step here is to click  the + sign on the right. This will allow us to authenticate and subscribe to the Event Grid.
-
-
-![Connected to Azure Event Grid](src/04.png)
-
-Once the authentication is complete you should see the user email and a green checkmark. Click "Continue" to subscribe to the Media Services Events.
-
-
-![Azure Media Services Resource Events](src/05.png)
-
-In the "Resource Type" list locate "Microsoft.Media.MediaServices".
-
-
-![Azure Media Services Event Type](src/06.png)
-
-In the "Event Type Item" there will be a list of all the events Azure Media Services emits. You can select the events you would like to track. You can add multiple event types. **Later we will make a small change to the Logic App flow to store each event type in a separate Log Analytics Log and propagate the Event Type name to the Log Analytics Log name dynamically.**
+7. In the "Event Type Item" there will be a list of all the events Azure Media Services emits. You can select the events you would like to track. You can add multiple event types. **Later we will make a small change to the Logic App flow to store each event type in a separate Log Analytics Log and propagate the Event Type name to the Log Analytics Log name dynamically.**
 
 
 ![Azure Log Analytics Data Collector](src/07.png)
