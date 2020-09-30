@@ -80,10 +80,10 @@ ffmpeg -i mySampleVideo.mp4 -map 0 -c:v libx264 -c:a copy -f flv rtmp://amsevent
   > [!NOTE]
   > You may need to refresh the page. The first time it can take a few minutes to create the custom log and populate the data.**
 
-You can also:
-* Select the event to see all of its fields.
-* Select the "eye" icon to see a preview of the query result.
-* Select **See in query editor** to see the raw data of all fields.
+  You can also:
+  * Select the event to see all of its fields.
+  * Select the "eye" icon to see a preview of the query result.
+  * Select **See in query editor** to see the raw data of all fields.
 
 ## Next steps:
 You can create different queries and save them. These can be added to [Azure Dashboard](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/tutorial-logs-dashboards).
