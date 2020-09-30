@@ -1,44 +1,23 @@
 # Tutorial: Store Azure Media Services Events in Azure Log Analytics
 
-In this tutorial you will learn how to store Azure Media Services events in Azure Log Analytics.
-* Create a no code Logic App Flow
-* Subscribe to Azure Media Services Event Topics
-* Parse Events and store to Azure Log Analytics
-* Query Events from Azure Log Analytics
-
-If you don’t have an Azure subscription, create a [free account](https://azure.microsoft.com/free/?WT.mc_id=A261C142F) before you begin.
+In this tutorial you will learn how to store Azure Media Services events in Azure Log Analytics. Azure Media Services v3 emits events on [Azure Event Grid](https://docs.microsoft.com/en-us/azure/media-services/latest/media-services-event-schemas). You can subscribe to these events and store the events in various data stores. In this tutorial you will subscribe to these events using a [Log App Flow](https://azure.microsoft.com/en-us/services/logic-apps/). The Logic App will be triggered for each event and store the body of the event in Azure Log Analytics. Once the events are in [Azure Log Analytics](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace), you can use other Azure services to monitor, dashboard, and alert on these events.
 
 ## Prerequisites:
-* Azure Subscription
-* AMS account already created
-* Log Analytics Workspace already created
+* [Azure Subscription](https://azure.microsoft.com/free/?WT.mc_id=A261C142F)
+* Azure Media Services account
+* [Azure Log Analytics Workspace](https://docs.microsoft.com/azure/azure-monitor/learn/quick-create-workspace)
 
-## Azure Media Services Events
-Azure Media Services v3 emits events on [Azure Event Grid](https://docs.microsoft.com/en-us/azure/media-services/latest/media-services-event-schemas). You can subscribe to these events in many ways and store the events in various data stores. In this tutorial we will subscribe to these events using a [Log App Flow](https://azure.microsoft.com/en-us/services/logic-apps/). The Logic App will be triggered for each event and store the body of the event in Azure Log Analytics. Once the events are in [Azure Log Analytics](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace) we can use other Azure services to monitor, dashboard and alert on these events as desired by your own needs.
+## Record Log Analytics workspace ID and agent key
 
-For this tutorial we expect you already have an [Azure Media Services](https://docs.microsoft.com/en-us/azure/media-services/latest/create-account-howto) account. During the creation of the Logic App flow we also need to specify an Azure Log Analytics Workspace. 
-**It is best you already set one up now using these simple steps: [Quick Create Workspace](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace)**
+To connect your Logic App you'll create to your Log Analytics Workspace, you need the Workspace ID and Agent Key.
 
-To connect to the Log Analytics Workspace you need the Workspace ID and an Agent Key. In the Azure Portal navigate to your Log Analytics Workspace you created before the start of this tutorial. **To keep the Logic App designer open you can do this in a separate browser tab.** In the Azure Portal, in the Log Analytics workspace you can find the Workspace ID at the top.
+1. In the Azure Portal, navigate to your Log Analytics Workspace you created before the start of this tutorial.
 
-
-![Azure Log Analytics Agents management](src/09.png)
-
-On the left menu locate "Agents Management" and click on it. This will show you the agent keys that have been generated.
-
-
-![Log Analytics Agent Key](src/10.png)
-
-Copy one of the keys over to your Logic App.
-
-
-![Create Azure Logic App Connector](src/11.png)
-
-Now click on "Create".
+1. Select **Agents Management** from the left panel. Copy and paste the **Workspace ID** and the **Primary key** to a text editor.
 
 ## Create and setup your Logic App
 
-1. In the Azure portal, navigate to your Azure Media Services account and select **Events** from the navigation pane on the left. The main panel will display the event handlers available for Azure Media Services events.
+1. In the Azure portal, navigate to your Azure Media Services account and select **Events** from the navigation pane on the left. The main panel will show the event handlers available for Azure Media Services events.
 
 1. Select **Logic Apps** to create a Logic App. This opens the Logic App Designer, where you can create the process that will capture events and push them to Log Analytics.
 
