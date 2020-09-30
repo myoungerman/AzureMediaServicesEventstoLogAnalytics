@@ -78,42 +78,30 @@ Now click on "Create".
 
 To test your logic app, you'll create a Live Event in Azure Media Services, and then you'll use FFmpeg to push a "live" stream from an MP4 sample file.
 
-1. Create a Live Event in Azure Media Services.
-
-1. Copy the RTMP ingest URL.
+1. Create a live event in Azure Media Services, and copy the live event's RTMP ingest URL.
 
 1. Create or download an MP4 file to your computer.
 
 1. Open a text editor and paste both the RTMP ingest URL and `ffmpeg -i <sample file> -map 0 -c:v libx264 -c:a copy -f flv <RTMP ingest URL>/mystream`.
 
-1. Replace `<sample file>` with the file path and name of your sample file, and replace `<RTMP ingest URL>` with your RTMP ingest URL. Now your command should look something like this:
+1. Replace `<sample file>` with the file path and name of your sample file, and replace `<RTMP ingest URL>` with your RTMP ingest URL. Now your command should look similar to this:
 
 ```
 ffmpeg -i mySampleVideo.mp4 -map 0 -c:v libx264 -c:a copy -f flv rtmp://amsevent-amseventdemo-euwe.channel.media.azure.net:1935/live/4b969cd6ac3e4ad68b539c2a38c6f8f3/mystream
 ```
 
-1. Open FFmpeg, and then copy and paste your command into the FFmpeg CLI. Press **Enter**.
-
-After a couple seconds you should see the stream in the "Producer view" player. **Refresh the player if needed**.
+1. Open Command Prompt, and then copy and paste your command. Press **Enter**. After a couple seconds you should see the stream in the **Producer view** livestream player. If you don't see the stream, refresh the player.
 
 ![Verify proper video ingest in Producer Preview Player](src/18.png)
 
-By now we have a livestream so Azure Media Services is emitting various events that are triggering the Logic App flow. To verify navigate to the Logic App and see if can see any triggers being fired by the events from Media Services.
+1. Go to the **Run History** section of **Logic App Overview** to ensure the Logic App flow is being triggered by the live event. You should see a list of jobs that have completed successfully. When you click on a successful job you can see the details of the job during runtime. In this case the "MicrosoftMediaLiveEventEncoderConnected" event was captured and we can see the parsed body.
 
+1. Navigate to the Log Analytics Workspace you created earlier.
 
-![Verify successful job execution in Logic App](src/19.png)
+1. In  **Log Analytics** select **Logs** in the left menu. This should open the Log Query containing a **Custom Logs** section with the event name **MicrosoftMediaLiveEventEncoderConnected**. 
 
-In the Logic App Overview page we should see "Run History" at the bottom of the page with jobs that have completed successfully.
-
-
-![See Job Details during Runtime](src/20.png)
-
-When you click on a Successful Job you can see the details of the job during runtime. In this case you can see that the "MicrosoftMediaLiveEventEncoderConnected" event was captured and we can see the parsed body. This is what is pushed to the Azure Log Analytics Workspace. Let’s go the Log Analytics Workspace to verify. Navigate to Log Analytics Workspace you created earlier.
-
-
-![See Events in Log Analytics](src/21.png)
-
-In the Log Analytics click on "Logs" in the left menu. This should open de Log Query. There should be a "Custom Logs" with the event name "MicrosoftMediaLiveEventEncoderConnected". **Note: You may need to refresh the page. The first time it can take a couple minutes to create the custom log and the data to populate.**
+  > [!NOTE]
+  > You may need to refresh the page. The first time it can take a couple minutes to create the custom log and the   data to populate.**
 
 
 ![Preview Query](src/22.png)
