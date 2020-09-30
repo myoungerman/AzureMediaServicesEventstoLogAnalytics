@@ -74,16 +74,29 @@ Now click on "Create".
 
 1. Check your resource group by searching for _Resource groups_ in the main search bar of the webpage. In your resource group, you should see a Logic App and two API connections, one for the Events and one for Log Analytics.
 
+## Test your logic app
 
-Now we would like see it actually work. To test let's create a Live Event in Azure Media Services. For this test we create a RTMP Live Event and we are going to use ffmpeg to push a "live" stream based on a mp4 sample file. After the event is created you get the RTMP ingest URL. Copy this url over to the ffmpeg commandline below and add a unique name at the end like "mystream" for instance. Adjust the commandline to reflect your test source file and any other system varialbles.
+To test your logic app, you'll create a Live Event in Azure Media Services, and then you'll use FFmpeg to push a "live" stream from an MP4 sample file.
+
+1. Create a Live Event in Azure Media Services.
+
+1. Copy the RTMP ingest URL.
+
+1. Create or download an MP4 file to your computer.
+
+1. Open a text editor and paste both the RTMP ingest URL and `ffmpeg -i <sample file> -map 0 -c:v libx264 -c:a copy -f flv <RTMP ingest URL>/mystream`.
+
+1. Replace `<sample file>` with the file path and name of your sample file, and replace `<RTMP ingest URL>` with your RTMP ingest URL. Now your command should look something like this:
+
 ```
-ffmpeg -i bbb_sunflower_720p_25fps_encoded.mp4 -map 0 -c:v libx264 -c:a copy -f flv rtmp://amsevent-amseventdemo-euwe.channel.media.azure.net:1935/live/4b968cd6ac3e4ad68b539c2a38c6f8f3/mystream
+ffmpeg -i mySampleVideo.mp4 -map 0 -c:v libx264 -c:a copy -f flv rtmp://amsevent-amseventdemo-euwe.channel.media.azure.net:1935/live/4b969cd6ac3e4ad68b539c2a38c6f8f3/mystream
 ```
 
+1. Open FFmpeg, and then copy and paste your command into the FFmpeg CLI. Press **Enter**.
+
+After a couple seconds you should see the stream in the "Producer view" player. **Refresh the player if needed**.
 
 ![Verify proper video ingest in Producer Preview Player](src/18.png)
-
-After a couple seconds you should see the stream in the "Producer view" player. **Refresh the player if needed**
 
 By now we have a livestream so Azure Media Services is emitting various events that are triggering the Logic App flow. To verify navigate to the Logic App and see if can see any triggers being fired by the events from Media Services.
 
