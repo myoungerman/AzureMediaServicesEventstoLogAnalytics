@@ -9,17 +9,17 @@ In this tutorial you will learn how to store Azure Media Services events in Azur
 
 ## Record Log Analytics workspace ID and agent key
 
-To connect your Logic App you'll create to your Log Analytics Workspace, you need the Workspace ID and Agent Key.
+To connect the Logic App you'll create to your Log Analytics Workspace, you need the Workspace ID and Agent Key.
 
-1. In the Azure Portal, navigate to your Log Analytics Workspace you created before the start of this tutorial.
+1. In the Azure Portal, navigate to the Log Analytics Workspace you created before the start of this tutorial.
 
 1. Select **Agents Management** from the left panel. Copy and paste the **Workspace ID** and the **Primary key** to a text editor.
 
 ## Create and setup your Logic App
 
-1. In the Azure portal, navigate to your Azure Media Services account and select **Events** from the navigation pane on the left. The main panel will show the event handlers available for Azure Media Services events.
+1. In the Azure portal, go to your Azure Media Services account and select **Events** from the panel on the left. The main panel will show the event handlers available for Azure Media Services events.
 
-1. Select **Logic Apps** to create a Logic App. This opens the Logic App Designer, where you can create the process that will capture events and push them to Log Analytics.
+1. Select **Logic Apps** to open the Logic App Designer, where you can create the process that will capture events and push them to Log Analytics.
 
 1. Select **+** on the right to authenticate and subscribe to the Event Grid. A window with a list will appear, prompting you to select a tenant.
 
@@ -63,11 +63,11 @@ To test your logic app, you'll create a Live Event in Azure Media Services, and 
 
 1. Replace `<sample file>` with the file path and name of your sample file, and replace `<RTMP ingest URL>` with your RTMP ingest URL. Now your command should look similar to this:
 
-```
-ffmpeg -i mySampleVideo.mp4 -map 0 -c:v libx264 -c:a copy -f flv rtmp://amsevent-amseventdemo-euwe.channel.media.azure.net:1935/live/4b969cd6ac3e4ad68b539c2a38c6f8f3/mystream
-```
+  ```
+  ffmpeg -i mySampleVideo.mp4 -map 0 -c:v libx264 -c:a copy -f flv rtmp://amsevent-amseventdemo-euwe.channel.media.azure.net:1935/live/4b969cd6ac3e4ad68b539c2a38c6f8f3/mystream
+  ```
 
-1. Open Command Prompt, and then copy and paste your command. Press **Enter**. After a couple seconds you should see the stream in the **Producer view** livestream player. If you don't see the stream, refresh the player.
+1. Open **Command Prompt**, and then copy and paste your command. Press **Enter**. After a couple seconds you should see the stream in the **Producer view** livestream player. If you don't see the stream, refresh the player.
 
 ![Verify proper video ingest in Producer Preview Player](src/18.png)
 
