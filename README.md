@@ -19,30 +19,6 @@ Azure Media Services v3 emits events on [Azure Event Grid](https://docs.microsof
 For this tutorial we expect you already have an [Azure Media Services](https://docs.microsoft.com/en-us/azure/media-services/latest/create-account-howto) account. During the creation of the Logic App flow we also need to specify an Azure Log Analytics Workspace. 
 **It is best you already set one up now using these simple steps: [Quick Create Workspace](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace)**
 
-## Walkthrough Steps
-
-1. In the Azure portal, navigate to your Azure Media Services account and select **Events** from the navigation pane on the left. The main panel will display the event handlers available for Azure Media Services events.
-
-2. Select **Logic Apps** to create a Logic App. This opens the Logic App Designer, where you can create the process that will capture events and push them to Log Analytics.
-
-3. Select **+** on the right to authenticate and subscribe to the Event Grid. A window with a list will appear, prompting you to select a tenant.
-
-4. Select your tenant from the list, and then select **Sign in**. Once the authentication is complete, you'll see your user email and a green checkmark.
-
-5. Select **Continue** to subscribe to the Media Services Events.
-
-6. In the **Resource Type** list, select _Microsoft.Media.MediaServices_.
-
-7. In the "Event Type Item" there will be a list of all the events Azure Media Services emits. You can select the events you would like to track. You can add multiple event types. **Later we will make a small change to the Logic App flow to store each event type in a separate Log Analytics Log and propagate the Event Type name to the Log Analytics Log name dynamically.**
-
-
-![Azure Log Analytics Data Collector](src/07.png)
-
-Now we are subscribed to the Event(s) we need to create an action. Since we want to push the events to the Azure Log Analytics service search for "Azure Log Analytics" and select the "Azure Log Analytics Data Collector".
-
-
-![Azure Log Analytics Workspace ID](src/08.png)
-
 To connect to the Log Analytics Workspace you need the Workspace ID and an Agent Key. In the Azure Portal navigate to your Log Analytics Workspace you created before the start of this tutorial. **To keep the Logic App designer open you can do this in a separate browser tab.** In the Azure Portal, in the Log Analytics workspace you can find the Workspace ID at the top.
 
 
@@ -60,48 +36,37 @@ Copy one of the keys over to your Logic App.
 
 Now click on "Create".
 
+## Walkthrough Steps
 
-![Add Event Topic](src/11b.png)
+1. In the Azure portal, navigate to your Azure Media Services account and select **Events** from the navigation pane on the left. The main panel will display the event handlers available for Azure Media Services events.
 
-Click "Add Dynamic content" and select "Topic". Do the same for "Custom Log Name".
+1. Select **Logic Apps** to create a Logic App. This opens the Logic App Designer, where you can create the process that will capture events and push them to Log Analytics.
 
+1. Select **+** on the right to authenticate and subscribe to the Event Grid. A window with a list will appear, prompting you to select a tenant.
 
-![Change json of the Logic App](src/12.png)
+1. Select your tenant from the list, and then select **Sign in**. Once the authentication is complete, you'll see your user email and a green checkmark.
 
-Go into the "Code View" of the Logic App. We need to change two lines. 
-At the top of the json locate the "Inputs" section and change the "body" element as following:
+1. Select **Continue** to subscribe to the Media Services Events. The **When a resource event occurs** window will appear.
 
-```
-"@triggerBody()?['topic']"
-```
-Replace with
-```
-"@{triggerBody()}"
-```
+1. In the **Resource Type** list, select _Microsoft.Media.MediaServices_.
 
-This is for the purpose to parse the entire message to Log Analytics. Next step is to change the "Log-Type" as following:
+1. In the **Event Type Item** list, select _Microsoft.Media.LiveEventEncoderConnected_.
 
-```
-"@triggerBody()?['topic']"
-```
+1. Below the **When a resource event occurs** window, select **+ New Step**. The **Choose an operation** window will appear.
 
-Replace with
+1. Since we want to push the events to the Azure Log Analytics service, search for _Azure Log Analytics_ and select **Azure Log Analytics Data Collector**. The **Azure Log Analytics Data Collector** window will appear.
 
-```
-"@replace(triggerBody()?['eventType'],'.','')"
-```
+1. Enter a connection name, as well as the Workspace ID and Workspace key you copied from your Log Analytics workspace, and then select **Create**. The **Send Data (Preview)** window will appear.
 
-This will replace "." as these are not allowed in Log Analytics Log Names.
+1. Select the **JSON Request body** field. A window will appear with two tabs, **Dynamic Content** and **Expression**.
 
+1. Select the **Dynamic Content** tab and then select **Topic** from the list. Do the same for the **Custom Log Name** tab.
 
-![Logic App json after change](src/25.png)
+1. Select **Code View** at the top of the page. Near the top of the JSON locate the **inputs** property and change its **body** property from `"@triggerBody()?['topic']"` to `"@{triggerBody()}"`. This will parse the entire message to Log Analytics.
 
-It should now look like the picture above.
+1. In the **inputs** property, change its **Log-Type** property from `"@triggerBody()?['topic']"` to `"@replace(triggerBody()?['eventType'],'.','')"`. This will replace ".", which are not allowed in Log Analytics Log Names.
 
-
-![Save Logic App](src/13.png)
-
-Click "Save As" at the top.
+1. Select **Save As** at the top of the page.
 
 
 ![Create new Logic App](src/14.png)
