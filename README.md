@@ -29,7 +29,7 @@ To connect the Logic App you'll create to your Log Analytics Workspace, you need
 
 1. In the **Resource Type** list, select _Microsoft.Media.MediaServices_.
 
-1. In the **Event Type Item** list, select _Microsoft.Media.LiveEventEncoderConnected_.
+1. In the **Event Type Item** list, select _Microsoft.Media.LiveEventEncoderConnected_, then select **Add new item** to create a new blank item. Create an item for each event that begins with _Microsoft.Media.LiveEvent_ in the list.
 
 1. Below the **When a resource event occurs** window, select **+ New Step**. The **Choose an operation** window will appear.
 
